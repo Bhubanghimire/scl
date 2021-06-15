@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block file %}
+
+{% load static %}
+<link rel="apple-touch-icon" href="{% static 'app-assets/images/ico/apple-icon-120.png'%}" >
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'app-assets/images/ico/favicon.ico' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
+
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/vendors.min.css' %}">
+    <!-- END: Vendor CSS-->
+
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/bootstrap-extended.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/colors.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/components.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/themes/dark-layout.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/themes/bordered-layout.css' %}">
+
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/core/menu/menu-types/vertical-menu.css' %}">
+    <!-- END: Page CSS-->
+
+    <!-- BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="content-header row">
+    <div class="content-header-left col-md-9 col-12 mb-2">
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <h2 class="content-header-title float-left mb-0"><b>Notice Board</b></h2>
+                <div class="breadcrumb-wrapper">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li class="breadcrumb-item"><a href="{% url 'addclass' %}">class</a>
+                        </li>
+                        
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section id="basic-vertical-layouts">
+    <div class="row">
+        <div class="col-md-3 col-19 h-200">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Add New Class </h4>
+                </div>
+                <div class="card-body">
+                    <form class="form form-vertical" method="POST" action="{% url 'addclass' %}" validate>
+                        {% csrf_token %}
+
+
+                            {%for field in form %}
+                            <div class="form-group">
+                              {{ field.label_tag }}
+                        
+                              {% if form.is_bound %}
+                                {% if field.errors %}
+                        
+                                  {% render_field field class="form-control is-invalid" %}
+                                  {% for error in field.errors %}
+                                    <div class="invalid-feedback">
+                                      {{ error }}
+                                    </div>
+                                  {% endfor %}
+                        
+                                {% else %}
+                                  {% render_field field class="form-control is-valid" %}
+                                {% endif %}
+                              {% else %}
+                                {% render_field field class="form-control" %}
+                              {% endif %}
+                        
+                              {% if field.help_text %}
+                                <small class="form-text text-muted">
+                                  {{ field.help_text }}
+                                </small>
+                              {% endif %}
+                            </div>
+                          {% endfor %}
+                            <div class="col-12">
+                                <button type="submit" class="btn  btn-primary mr-1 ">Submit</button>
+                                <button type="reset" class="btn btn-outline-secondary ">Reset</button>
+                            </div>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9 col-12">
+            <div class="card">
+                <div class="col-md-19 col-28">
+                    <div class="card height-auto">
+                        <div class="card-body">
+                            <div class="heading-layout1">
+                                <div class="item-title">
+                                    <h3>Class Info</h3>
+                                </div>
+                              
+                            </div>
+                            <form class="mg-b-20" method="POST">
+                                <div class="row gutters-8">
+                                    
+                                    <div class="col-lg-5 col-12 form-group">
+                                        <input type="text" placeholder="Enter Room No" name="room" class="form-control">
+                                    </div>
+                                    <div class="col-lg-2 col-12 form-group">
+                                        <button type="submit" class="btn  btn-primary mr-1">SEARCH</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="notice-board-wrap">
+                                
+                                <div class="notice-list">            
+                                    <table class="datatables-ajax table">
+                                        <thead>
+                                            <tr>
+                                                <th>Class </th>
+                                                <th>Section</th>
+                                                <th>Room No</th>
+                                                <th>No of student</th>
+                                                <th>Action</th>
+                                            </tr>
+                                            
+                                            <tr>
+                                              <td>
+                                                {% if result %}
+                                                <br>
+                                                  <h2>{{result}}</h2>
+                                                {% endif %}
+                                              </td>
+                                            </tr>
+                                                {% for i in topics %}
+                                            <tr>
+                                                <td>{{i.class_level}}</td>
+                                                <td>{{i.section}}</td>                                
+                                                <td>{{i.room_number}}</td>
+                                                <td>{{i.no_student}}</td>
+                                                <td><a href="{% url 'class_edit' i.pk %}">Edit</a>  || <a href="{% url 'class_delete' i.pk %}">Delete</a></td>
+                                                {% endfor %}
+                                            </tr>
+                                           
+                                        </thead>
+                                    </table>
+
+
+                                    {% if topics.has_other_pages %}
+                                    <nav aria-label="Topics pagination" class="mb-4">
+                                      <ul class="pagination">
+                                        {% if topics.has_previous %}
+                                          <li class="page-item">
+                                            <a class="page-link" href="?page={{ topics.previous_page_number }}">Previous</a>
+                                          </li>
+                                        {% else %}
+                                          <li class="page-item disabled">
+                                            <span class="page-link">Previous</span>
+                                          </li>
+                                        {% endif %}
+                                  
+                                        {% for page_num in topics.paginator.page_range %}
+                                          {% if topics.number == page_num %}
+                                            <li class="page-item active">
+                                              <span class="page-link">
+                                                {{ page_num }}
+                                                <span class="sr-only">(current)</span>
+                                              </span>
+                                            </li>
+                                          {% else %}
+                                            <li class="page-item">
+                                              <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+                                            </li>
+                                          {% endif %}
+                                        {% endfor %}
+                                  
+                                        {% if topics.has_next %}
+                                          <li class="page-item">
+                                            <a class="page-link" href="?page={{ topics.next_page_number }}">Next</a>
+                                          </li>
+                                        {% else %}
+                                          <li class="page-item disabled">
+                                            <span class="page-link">Next</span>
+                                          </li>
+                                        {% endif %}
+                                      </ul>
+                                    </nav>
+                                  {% endif %}
+                                  
+                                </div>                             
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

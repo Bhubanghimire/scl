@@ -1,0 +1,359 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+
+{% block file %}
+       
+<title>Profile - Vuexy - Bootstrap HTML admin template</title>
+<link rel="apple-touch-icon" href="{% static 'app-assets/images/ico/apple-icon-120.png' %}">
+<link rel="shortcut icon" type="image/x-icon" href="{% static 'app-assets/images/ico/favicon.ico' %}">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
+
+<!-- BEGIN: Vendor CSS-->
+<link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/vendors.min.css' %}">
+
+
+<!-- BEGIN: Theme CSS-->
+<link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/bootstrap.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/bootstrap-extended.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/colors.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/components.css' %} ">
+<link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/themes/dark-layout.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/themes/bordered-layout.css' %}">
+
+<!-- BEGIN: Page CSS-->
+<link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/core/menu/menu-types/vertical-menu.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/pages/page-profile.css' %}">
+<!-- END: Page CSS-->
+
+<!-- BEGIN: Custom CSS-->
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}">
+<!-- END: Custom CSS-->
+
+{% endblock %}
+
+
+{% block content %}
+{% for stu in object.student.all %}
+ 
+                <div class="content-header-left col-md-9 col-12 mb-2">
+                    <div class="row breadcrumbs-top">
+                        <div class="col-12">
+                            <h2 class="content-header-title float-left mb-0">Profile</h2>
+                            <div class="breadcrumb-wrapper">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="{% url 'allstudent' %}">Allstudent</a>
+                                    </li>
+                                    <li class="breadcrumb-item active">Profile
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div id="user-profile">
+                <!-- profile header -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card profile-header mb-2">
+                            <!-- profile cover photo -->
+                            <img
+                                    class="card-img-top"
+                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFtogXvx99DI0122j-kQfe--Ao2QCBejSPBQ&usqp=CAU"
+                                    alt="User Profile Image"
+                                    style="height: 300px;"
+                            />
+                            <!--/ profile cover photo -->
+        
+                            <div class="position-relative">
+                                <!-- profile picture -->
+                                <div class="profile-img-container d-flex align-items-center">
+                                    <div class="profile-img">
+                                        <img
+                                                src="/media/{{stu.image}}"
+                                                class="rounded img-fluid"
+                                                alt="Card image"
+                                        />
+                                    </div>
+                                    <!-- profile title -->
+                                    <div class="profile-title ml-3">
+                                        <h2 class="text-white">{{stu.name}}</h2>
+                                        <p class="text-white">{{stu.class_level}}</p>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <!-- tabs pill -->
+                            <div class="profile-header-nav">
+                                <!-- navbar -->
+                                <nav class="navbar navbar-expand-md navbar-light justify-content-end justify-content-md-between w-100">
+                                    <!-- collapse  -->
+                                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                        <div class="profile-tabs d-flex flex-wrap mt-1 mt-md-0">
+        
+                                           
+                                                <i data-feather="edit" class="d-block d-md-none"></i>
+                                                <span class="font-weight-bold d-none d-md-block"><a class="btn btn-primary mr-2" href="{% url 'student_edit' stu.id %}" >Edit</a></span>
+                                          
+                                        </div>
+                                    </div>
+                                    <!--/ collapse  -->
+                                </nav>
+                                <!--/ navbar -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/ profile header -->
+        
+                <!-- profile info section -->
+                <section id="profile-info">
+                    <div class="row">
+                        <!-- left profile info section -->
+                        <div class="col-lg-9 col-12 order-2 order-lg-1">
+                            <!-- about -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Student Information</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <h5 class="mb-75">Email</h5>
+                                            <p class="card-text">
+                                                {{stu.email}}
+                                            </p>
+                                        </div>
+                                        <div class="col-4">
+                                            <h5 class="mb-75">Contact:</h5>
+                                            <p class="card-text">{{stu.phone}}</p>
+                                        </div>
+                                        <div class="col-4">
+                                            <h5 class="mb-75">Date of Birth:</h5>
+                                            <p class="card-text">{{stu.dob}}</p>
+                                        </div>
+                                        <div class="col-4 mt-1">
+                                            <h5 class="mb-75">Gender:</h5>
+                                            <p class="card-text">{{stu.gender}}</p>
+                                        </div>
+                                        <div class="col-4 mt-1">
+                                            <h5 class="mb-75">Blood Group:</h5>
+                                            <p class="card-text">{{stu.bgroup}}</p>
+                                        </div>
+                                        <div class="col-12">
+                                            <hr>
+                                        </div>
+                                        <div class="col-6 mt-1">
+                                            <h5 class="mb-75">Permanent Address</h5>
+                                            <p class="card-text">{{stu.permanent_address}}</p>
+                                        </div>
+                                        <div class="col-6 mt-1">
+                                            <h5 class="mb-75">Current Address</h5>
+                                            <p class="card-text">{{stu.current_address}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Guardians Information</h4>
+                                      
+                                        <!-- <i data-feather="edit" class="d-block d-md-none"></i> -->
+                                       <a class="btn btn-primary mr-1"  href="{% url 'parent_add' object.id %}" >Add Guardian</a>                                      
+                                </div>
+
+                                {% for parent in object.parent.all %}
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h5 class="mb-75">Name</h5>
+                                            <p class="card-text">
+                                                {{parent.name}}
+                                            </p>
+                                        </div>
+                                        <div class="col-5">
+                                            <h5 class="mb-75">Relationship</h5>
+                                            <p class="card-text">
+                                                {{parent.relationship}}
+                                            </p>
+                                        </div>
+                                        <div class="col-1">
+                                            <a href="{% url 'parent_edit' parent.id %}"><i data-feather='edit'></i></a>
+                                            <a href="{% url 'parent_delete' parent.id %}"><i data-feather='delete'></i></a>
+                                        </div>
+                                        <div class="col-6 mt-2">
+                                            <h5 class="mb-75">Email</h5>
+                                            <p class="card-text">
+                                                {{parent.email}}
+                                            </p>
+                                        </div>
+                                        <div class="col-6 mt-2">
+                                            <h5 class="mb-75">Contact:</h5>
+                                            <p class="card-text">{{parent.contact}}</p>
+                                        </div>
+                                        <div class="col-12">
+                                            <hr>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <!--/ about -->
+        
+                        </div>
+                        <!-- right profile info section -->
+                        <div class="col-lg-3 col-12 order-3">
+                            <!-- latest profile pictures -->
+        
+                            <div class="card border-primary">
+                                <div class="card-header d-flex justify-content-between align-items-center pt-75 pb-1">
+                                    <h5 class="mb-0">Attendance Lat 7 days.</h5>
+        
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-sm">
+                                        <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th class="text-right">Status</th>
+                                        </tr>
+        
+                                        </thead>
+                                        {% for i in attendance %}
+                                        <tbody>
+                                        <tr>
+                                            <td>{{i.date_now}}</td>
+
+                                            
+                                             <td class="text-right"><span class="badge badge-success">{{i.status}}</span></td>                                             
+                                        </tr>
+                                    </tbody>
+                                
+                                    {% endfor %}
+                                </table>
+                                        
+
+                                       
+                                   
+                                    <button class="btn btn-primary text-center btn-block btn-sm mt-2" data-toggle="modal"
+                                            data-target="#xlarge">View Details
+                                    </button>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <!--/ right profile info section -->
+                    </div>
+        
+                </section>
+                <!--/ profile info section -->
+            </div>
+            <div
+                    class="modal fade text-left"
+                    id="default"
+                    tabindex="-1"
+                    role="dialog"
+                    aria-labelledby="myModalLabel1"
+                    aria-hidden="true"
+            >
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel1">Add Guardian of Anish Shrestha</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true"></span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label for="basicInput">Name</label>
+                                        <input type="text" class="form-control" id="basicInput" placeholder="Enter Full Name" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="basicInput">Relationship</label>
+                                        <input type="text" class="form-control" id="basicInput" placeholder="Enter Relationship" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="basicInput">Email</label>
+                                        <input type="text" class="form-control" id="basicInput" placeholder="Enter Email" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="basicInput">Contact</label>
+                                        <input type="text" class="form-control" id="basicInput" placeholder="Enter Contact" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="basicInput">Has System Access</label>
+                                    <div class="d-inline-flex mt-1">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input"  />
+                                            <label class="custom-control-label" for="customRadio1">Yes</label>
+                                        </div>
+                                        <div class="custom-control custom-radio ml-2">
+                                            <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" checked />
+                                            <label class="custom-control-label" for="customRadio2">No</label>
+                                        </div>
+        
+                                    </div>
+                                    <div class="form-group">
+                                       <label for="basicInput">Has System Access</label>
+                                        <input type="text" class="form-control" id="basicInput" placeholder="Enter Contact" />--}}
+                                   </div>
+                                </div>
+                            </div>
+        
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+
+            <hr />
+      
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+{% block jsfile %}
+   
+<button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
+<!-- END: Footer-->
+
+
+<!-- BEGIN: Vendor JS-->
+<script src="{% static 'app-assets/vendors/js/vendors.min.js' %}"></script>
+<!-- BEGIN Vendor JS-->
+
+<!-- BEGIN: Page Vendor JS-->
+<!-- END: Page Vendor JS-->
+
+<!-- BEGIN: Theme JS-->
+<script src="{% static 'app-assets/js/core/app-menu.js' %}"></script>
+<script src="{% static 'app-assets/js/core/app.js' %}"></script>
+<!-- END: Theme JS-->
+
+<!-- BEGIN: Page JS-->
+<script src="{% static 'app-assets/js/scripts/pages/page-profile.js' %}"></script>
+
+    
+{% endblock %}

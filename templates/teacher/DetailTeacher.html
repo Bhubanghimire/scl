@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+<div class="content-header row">
+    <div class="content-header-left col-md-9 col-12 mb-2">
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <h2 class="content-header-title float-left mb-0"><b>Teacher</b></h2>
+                <div class="breadcrumb-wrapper">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li class="breadcrumb-item"><a href="{% url 'allteacher' %}">All teachers</a>
+                        </li>     
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card-body">
+    
+    <div class="row my-2">
+        <div class="col-12 col-md-5 d-flex align-items-center justify-content-center mb-2 mb-md-0">
+            <div class="d-flex align-items-center justify-content-center">
+                <img src="/media/{{teacher.name.image}}" class="img-fluid product-img" alt="teacher image"  width="500" height="200" />
+            </div>
+        </div>
+        <div class="col-12 col-md-7">
+            <h1><b>Teacher Bio</b></h1>
+          
+            <p class="card-text">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                 Exercitationem ullam suscipit iste expedita
+                 adipisci quam <br> inventore est praesentium ut dolorum. Soluta in illo ullam quasi quis consectetur accusamus! Illum, quis?
+            </p>
+           <br>
+            <hr />
+            <div class="product-color-options">
+                <h3><b>Detail Information</b></h3>
+                <hr>
+                    <br>
+                <h2>
+                        <ul class="list-unstyled mb-0">
+                            <li class="d-inline-block selected">
+                                <div class="color-option b-primary">
+                                    <div class="filloption ">Name:{{teacher.name}}</div>
+                                </div>
+                            </li>
+                            <br>
+                            <br>
+                            <li class="d-inline-block">
+                                <div class="color-option b-info">
+                                    <div class="filloption">Date Of Birth: {{teacher.name.dob}}</div>
+                                </div>
+                            </li>
+                            <br>
+                            <br>
+                            <li class="d-inline-block">
+                                <div class="color-option b-info">
+                                    <div class="filloption">Contact: {{teacher.name.phone }}</div>
+                                </div>
+                            </li>
+                            <br>
+                            <br>
+                            <li class="d-inline-block">
+                                <div class="color-option b-danger">
+                                    <div class="filloption">District: {{teacher.name.district}}</div>
+                                </div>
+                            </li>
+                            <br>
+                            <br>
+                            <li class="d-inline-block">
+                                <div class="color-option b-warning">
+                                    <div class="filloption">Email:{{teacher.name.email}} </div>
+                                </div>
+                            </li>
+                            <br>
+                            <br>
+                            <li class="d-inline-block">
+                                <div class="color-option b-info">
+                                    <div class="filloption">Address: {{teacher.name.address}}</div>
+                                </div>
+                            </li>
+                          
+                        </ul>
+                    </div>
+                    <hr />
+                
+                
+                </h2>
+
+    
+            <div class="d-flex flex-column flex-sm-row pt-1">
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

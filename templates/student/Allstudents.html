@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+<div class="content-header row">
+    <div class="content-header-left col-md-9 col-12 mb-2">
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <h2 class="content-header-title float-left mb-0"><b>Students</b></h2>
+                <div class="breadcrumb-wrapper">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li class="breadcrumb-item"><a href="{% url 'allstudent' %}">All Students</a>
+                        </li>
+                        
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<section id="ajax-datatable">
+  <div class="row">
+      <div class="col-12">
+          <div class="card">
+
+                 <section id="basic-input">
+                  <div class="row">
+                      <div class="col-md-12">
+                              <div class="card-body">
+                                <form class="form-validate" method="GET">
+                                  {% csrf_token %}
+                                  <div class="row">
+                                      <div class="col-md-2">
+                                          <div class="form-group">
+                                              <input type="text" class="form-control" placeholder="Student Name"  name="name" id="username" required>
+                                          </div>
+                                      </div>
+                                      
+                                      <div class="col-md-4">
+                                          <div class="form-group">
+                                              <button type="submit" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1">Search</button>
+                                      </div>                                  
+                              </form>
+                                     
+                                  </div>
+                              </div>
+                          </div>
+                   
+                  </div>
+              </section>
+
+
+              <div class="card-datatable">
+                  <table class="datatables-ajax table">
+                      <thead>
+                          <tr>
+                            <th>Reg. ID</th>
+                            <th>Name</th>
+                            <th>Photo</th>
+                            <th>Gender</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Class</th>
+                            <th>Section</th>
+                            <th>Action</th>
+                              
+                          </tr>
+
+                              
+                          {% for i in object_list %}
+                          <tr>
+                            {% for i in i.student.all %}
+                          <td>#{{i.registration_no}}</td>
+                      
+                     
+                          
+                          <td>{{i.name}}</td>
+                       
+                          <td> <img src='/media/{{i.image}}' alt="not found" width="50" height="50"> </td>
+                          <!-- <td>{{i.name}}</td> -->
+                          <td>{{i.gender}}</td>
+                          <td>{{i.email}}</td>
+                          <td>{{i.phone}}</td>
+                          <td>{{i.class_level.class_level}}</td>
+                          <td>{{i.class_level.section}}</td>
+                          {% endfor %}
+                          
+
+                          <td><a class="btn btn-primary mr-1" href="{% url 'student_detail' i.pk %}">Detail</a> </td> 
+                      </tr>
+                          {% endfor %}
+                           
+                      </thead>
+                  </table>
+
+
+                  <br>
+                  {% if is_paginated %}
+                  <nav aria-label="Topics pagination" class="mb-4">
+                    <ul class="pagination">
+                      {% if page_obj.has_previous %}
+                        <li class="page-item">
+                          <a class="page-link" href="?name={{ request.GET.name}}&page={{ page_obj.previous_page_number }}">Previous</a>
+                        </li>
+                      {% else %}
+                        <li class="page-item disabled">
+                          <span class="page-link">Previous</span>
+                        </li>
+                      {% endif %}
+                  
+                        {% for page_num in paginator.page_range %}
+                        {% if page_obj.number == page_num %}
+                          <li class="page-item active">
+                            <span class="page-link">
+                              {{ page_num }}
+                              <span class="sr-only">(current)</span>
+                            </span>
+                          </li>
+                        {% else %}
+                          <li class="page-item">
+                            <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+                          </li>
+                        {% endif %}
+                      {% endfor %}
+                  
+                      {% if page_obj.has_next %}
+                        <li class="page-item">
+                          <a class="page-link" href="?name={{ request.GET.name}}&page={{ page_obj.next_page_number }}">Next</a>
+                        </li>
+                      {% else %}
+                        <li class="page-item disabled">
+                          <span class="page-link">Next</span>
+                        </li>
+                      {% endif %}
+                    </ul>
+                  </nav>
+                  {% endif %}
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+
+
+{% endblock %}

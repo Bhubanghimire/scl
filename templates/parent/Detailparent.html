@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+<div class="content-header row">
+    <div class="content-header-left col-md-9 col-12 mb-2">
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <h2 class="content-header-title float-left mb-0"><b>Parent</b></h2>
+                <div class="breadcrumb-wrapper">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li class="breadcrumb-item"><a href="{% url 'allparent'  %}">all Parent</a>
+                        </li>     
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card-body">
+   
+    <div class="row my-2">
+        <div class="col-12 col-md-5 d-flex align-items-center justify-content-center mb-2 mb-md-0">
+            <div class="d-flex align-items-center justify-content-center">
+                <img src="/media/{{parent.image}}" class="img-fluid product-img"  width="500" height="250" alt="parent image" />
+            </div>
+        </div>
+        <div class="col-12 col-md-7">
+            <h1><b>Parent Information</b></h1>
+          
+            <p class="card-text">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                 Exercitationem ullam suscipit iste expedita
+                 adipisci quam<br> inventore est praesentium ut dolorum. Soluta in illo ullam quasi quis consectetur accusamus! Illum, quis?
+            </p>
+           <br>
+            <hr />
+            <div class="product-color-options">
+                <h3><b>Detail Information</b></h3>
+                <hr>
+                    <br>
+                <h2>
+                
+                <ul class="list-unstyled mb-0">
+                    <li class="d-inline-block selected">
+                        <div class="color-option b-primary">
+                            <div class="filloption ">Name: {{parent.father_name}}</div>
+                        </div>
+                    </li>
+                    <br>
+                    <br>
+                    <li class="d-inline-block">
+                        <div class="color-option b-info">
+                            <div class="filloption">Mother Name: {{parent.mother_name}}</div>
+                        </div>
+                    </li>
+                    <br>
+                    <br>
+                    <li class="d-inline-block">
+                        <div class="color-option b-info">
+                            <div class="filloption">Occuptaion: {{parent.occupation }}</div>
+                        </div>
+                    </li>
+                   
+                    <br>
+                    <br>
+                    <li class="d-inline-block">
+                        <div class="color-option b-danger">
+                            <div class="filloption">Phone: {{parent.contact}}</div>
+                        </div>
+                    </li>
+                    <br>
+                    <br>
+                    <li class="d-inline-block">
+                        <div class="color-option b-warning">
+                            <div class="filloption">Email:{{parent.email}} </div>
+                        </div>
+                    </li>
+                    <br>
+                    <br>
+                    <li class="d-inline-block">
+                        <div class="color-option b-info">
+                            <div class="filloption">Address: {{parent.address}}</div>
+                        </div>
+                    </li>
+                    <br>
+                   
+                    <br>
+                    <li class="d-inline-block">
+                        <div class="color-option b-info">
+                            <div class="filloption">student: {% for i in parent.parent.all %} {% for j in i.student.all %} <a href="{% url 'student_detail' i.id %}"> {{j}}</a><br>{% endfor %}{% endfor %}</div>
+                        </div>
+                    </li>
+                    
+                  
+                    <!--  -->
+                </ul>
+            </div>
+            <hr />
+        </h2>
+
+      
+        <hr />
+          
+
+        <div>
+         <a class="btn btn-info"  href="" >Edit</a>
+         <a class="btn btn-info" href="">Delete</a>
+         <a class="btn btn-info" href="{% url 'parent_role' parent.id %}">change role</a>
+        </div>
+     </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

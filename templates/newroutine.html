@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="content-header row">
+    <div class="content-header-left col-md-9 col-12 mb-2">
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <h2 class="content-header-title float-left mb-0"><b>Routine Form</b></h2>
+                <div class="breadcrumb-wrapper">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li class="breadcrumb-item"><a href="{% url 'routine' %}">Routine</a>
+                        </li>
+                        
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% load crispy_forms_tags %}
+ <!-- Basic multiple Column Form section start -->
+ <section id="multiple-column-form">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Add Routine <small>{{no}}</small></h4>
+                    
+                      
+                    
+                </div>
+                <div class="card-body">
+                    <form  method="POST" validate >
+                        {% csrf_token %}
+                        {% if no %}
+                        <div class="row">
+                          
+                          <div class="col-md-3">
+                            
+                              <div class="form-group">
+                                  <select class="form-control" name="class" aria-label="Default select example" required>
+                                    <option value="">Select Class</option>
+                                    
+                                    {% for i in class_level %}
+                                    
+                                    <option value="{{i}}">{{i}}</option>
+                                    {% endfor %}
+                                    
+                                  </select>
+                              </div>
+                          </div>
+                          <div class="col-md-3">
+                              <div class="form-group">
+                                 
+                                <select class="form-control"  name="sec" aria-label="Default select example" required>
+                                  <option value="">Select Section</option>
+                                  {% for i in class_section %}
+    
+                                  <option value="{{i}}">{{i}}</option>
+                                  {% endfor %}
+                                </select>
+                                                            </div>
+                          </div>
+                          <div class="col-md-4">
+                              <div class="form-group">
+                                  <button type="submit" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1">Search</button>
+                                 
+                          </div>
+
+
+                          
+
+
+
+                        
+                          {% else %}
+                          {{result}}
+                       <div class="form-row">
+                          <div class="form-group col-md-5 mb-0 mx-3">
+                            <label for="subject">Subject</label>
+                            <select class="form-control"  name="subject" aria-label="Default select example" required>
+
+                              <option value="">Select Subject</option>
+                                  {% for i in subject %}
+
+                              <option value="{{i}}">{{i}}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                         <div class="form-group col-md-5 mb-0 mx-3">
+                              {{ form.period|as_crispy_field }}
+                            </div>
+                            <div class="form-group col-md-5 mb-0 mx-3">
+                              {{ form.day|as_crispy_field }}
+                            </div>
+  
+                            <div class="form-group col-md-5 mb-0 mx-3">
+                              {{ form.start_time|as_crispy_field }}
+                            </div>
+                            <div class="form-group col-md-5 mb-0 mx-3">
+                              {{ form.end_time|as_crispy_field }}
+                            </div>
+                            
+                            <div class="form-group col-md-5 mb-0 mx-3">
+                              <label for="">Teacher</label>
+                              <select class="form-control"  name="teacher" aria-label="Default select example" required>
+                                <option value="">Select Teacher</option>
+                                {% for i in teacher %}
+  
+                                <option value="{{i}}">{{i}}</option>
+                                {% endfor %}
+                              </select>
+                            </div>       
+                       </div>  
+                       
+                    
+                      
+                     <div class="col-12 col-md-5 mb-0 mx-3">
+                      <button type="submit" class="btn  btn-primary mr-1 ">Submit</button>
+                      <button type="reset" class="btn btn-outline-secondary ">Reset</button>
+                  </div>
+                  {% endif %}
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

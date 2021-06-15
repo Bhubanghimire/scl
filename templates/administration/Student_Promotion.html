@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block file %}
+
+{% load static %}
+<link rel="apple-touch-icon" href="{% static 'app-assets/images/ico/apple-icon-120.png'%}" >
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'app-assets/images/ico/favicon.ico' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
+
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/vendors.min.css' %}">
+    <!-- END: Vendor CSS-->
+
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/bootstrap-extended.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/colors.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/components.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/themes/dark-layout.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/themes/bordered-layout.css' %}">
+
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/core/menu/menu-types/vertical-menu.css' %}">
+    <!-- END: Page CSS-->
+
+    <!-- BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="content-header row">
+    <div class="content-header-left col-md-9 col-12 mb-2">
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <h2 class="content-header-title float-left mb-0"><b>Promotion</b></h2>
+                <div class="breadcrumb-wrapper">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li class="breadcrumb-item"><a href="{% url 'student_promotion' %}">student promotion</a>
+                        </li>
+                        
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section id="basic-vertical-layouts">
+    <div class="row">
+        <div class="col-md-5 col-19 h-200">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Student Promotion </h4>
+                </div>
+                <div class="card-body">
+                    <form class="form form-vertical" method="POST" action="{% url 'student_promotion' %}" validate>
+                        {% csrf_token %}
+
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Reg No</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" name="regno" aria-describedby="emailHelp" placeholder="Registration No" required>
+                           
+                          </div>
+                          
+                        <!-- Basic Select -->
+                        <div class="form-group">
+                            <label for="basicSelect">New Class</label>
+                            <select class="form-control" name="class" id="basicSelect" required>
+                                <option value=""></option>
+                                {% for i in class_level %}
+                                <option value="{{i}}">{{i}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Custom Select -->
+                        <div class="form-group">
+                            <label for="customSelect">New Section</label>
+                            <select class="custom-select" name="Section" id="customSelect" required>
+                                <option value=""></option>
+                                {% for i in class_sec %}
+                                
+                                <option value="{{i}}">{{i}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">New Roll No</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" name="roll" placeholder="New Roll No" required>
+                          </div>
+                          <br>
+                          
+                            <div class="col-12">
+                                <button type="submit" class="btn  btn-primary mr-1 ">Submit</button>
+                                <button type="reset" class="btn btn-outline-secondary ">Reset</button>
+                            </div>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7 col-12">
+            {% if result %}
+            <div class="card">
+                <div class="col-md-15 col-28">
+                    <div class="card height-auto">
+                        <div class="card-body">
+                            <div class="heading-layout1">
+                                <div class="item-title">
+                                  <h2>{{result}}</h2> 
+                                </div>
+                                 <!-- <br> -->
+                            </div>
+                            <!-- -->
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

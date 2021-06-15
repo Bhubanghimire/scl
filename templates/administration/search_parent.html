@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+
+
+
+                <!-- Advanced Search -->
+                <section id="advanced-search-datatable">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header border-bottom">
+                                    <h4 class="card-title">Search Parent Information</h4>
+                                </div>
+                                <!--Search Form -->
+                                <div class="card-body mt-2">
+                                    <form class="dt_adv_search" method="POST" >
+                                      {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form mb-1">
+                                                    <div class="col-lg-4">
+                                                        <label>Father Name:</label>
+                                                        <input type="text" class="form-control dt-input" name="name" placeholder="Father Name"  />
+                                                    </div>
+                                                    <br>
+                                                    <div class="col-lg-4">
+                                                        <label>Email:</label>
+                                                        <input type="text" class="form-control" name="email" placeholder="demo@example.com" />
+                                                    </div>
+                                                    <br>
+                                                    <div class="col-lg-4">
+                                                        <label>Contact:</label>
+                                                        <input type="text" class="form-control" name="phone" placeholder="Enter Phone " data-column-index="2" />
+                                                    </div>
+                                                    <br>
+                                                    <input type="submit" value="ADD" class="btn btn-primary mr-1">
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <hr class="my-0" />
+                                {% if result1 %}
+                                <br>
+                                   <h3>  {{ result1 }} </h3>
+                                
+
+                                {% else %}
+                                <!-- <h5>Following Data added</h5><br> -->
+                                <div class="card-datatable">
+                                    <table class="dt-advanced-search table">
+                                        <thead>
+                                            <tr>
+                                                
+                                                <th>Father Name</th>
+                                                <th>Mother Name</th>
+                                                <th>contact</th>
+                                                <th>Gmail</th>
+                                                <th>Address</th>
+                                                <th>District</th>
+                                            </tr>
+                                        </thead>
+                                        <tr>
+
+                                          <td> {{parent.father_name}} </td>
+                                          <td>{{parent.mother_name}} </td>
+                                          <td>{{parent.contact}} </td>
+                                          <td> {{parent.email}}</td>
+                                          <td> {{parent.address}}</td>
+                                          <td>{{parent.district}}</td>
+                                          
+                                        </tr>
+                                       
+                                    </table>
+
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!--/ Advanced Search -->
+
+                
+
+            </div>
+        </div>
+    </div>
+    <!-- END: Content-->
+
+    
+{% endblock %}

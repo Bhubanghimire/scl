@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+<div class="content-header row">
+    <div class="content-header-left col-md-9 col-12 mb-2">
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <h2 class="content-header-title float-left mb-0"><b>Students</b></h2>
+                <div class="breadcrumb-wrapper">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li class="breadcrumb-item"><a href="{% url 'allstaff' %}">All staff</a>
+                        </li>
+                        <li class="breadcrumb-item"><a href="{% url 'leave_application' %}">All leave</a>
+                        </li>
+                        
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section id="ajax-datatable">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header border-bottom">
+                    <h4 class="card-title">All Leave information</h4>
+                </div>
+
+                <section id="basic-input">
+                  <div class="row">
+                      <div class="col-md-12">
+                              
+                          </div>
+                   
+                  </div>
+              </section>
+                <div class="card-datatable">
+                    <table class="datatables-ajax table">
+                        <thead>
+                            <tr>
+                                <th>Staff Name</th>
+                                <th>leave type</th>
+                                <th>details</th>
+                                
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                            
+                            
+                                {% for i in object_list %}
+                                <tr>
+                                  
+                                <td>{{i.user}}</td>                  
+                                <td>{{i.leave_type}}</td>
+                             
+                                <td>{{i.reason}}</td>
+                                <td>{{i.startdate}}</td>
+                                <td>{{i.endate}}</td>
+                                <td>{{ i.approve }}</td>
+                                <td> <a class="btn btn-primary mr-1" href="{% url 'leave_approved' i.pk %}">Approve</a><a class="btn btn-primary mr-1" href="{% url 'leave_rejected' i.pk %}">Reject</a> </td>
+
+                            </tr>
+                                {% endfor %}     
+                             
+                        </thead>
+                    </table>
+
+                    
+                    {% if object_list.has_other_pages %}
+                    <nav aria-label="Topics pagination" class="mb-4">
+                      <ul class="pagination">
+                        {% if object_list.has_previous %}
+                          <li class="page-item">
+                            <a class="page-link" href="?page={{ object_list.previous_page_number }}">Previous</a>
+                          </li>
+                        {% else %}
+                          <li class="page-item disabled">
+                            <span class="page-link">Previous</span>
+                          </li>
+                        {% endif %}
+                
+                        {% for page_num in object_list.paginator.page_range %}
+                          {% if object_list.number == page_num %}
+                            <li class="page-item active">
+                              <span class="page-link">
+                                {{ page_num }}
+                                <span class="sr-only">(current)</span>
+                              </span>
+                            </li>
+                          {% else %}
+                            <li class="page-item">
+                              <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+                            </li>
+                          {% endif %}
+                        {% endfor %}
+                
+                        {% if object_list.has_next %}
+                          <li class="page-item">
+                            <a class="page-link" href="?page={{ object_list.next_page_number }}">Next</a>
+                          </li>
+                        {% else %}
+                          <li class="page-item disabled">
+                            <span class="page-link">Next</span>
+                          </li>
+                        {% endif %}
+                      </ul>
+                    </nav>
+                  {% endif %}
+
+                   
+
+                    {% if is_paginated %}
+                    <nav aria-label="Topics pagination" class="mb-4">
+                      <ul class="pagination">
+                        {% if page_obj.has_previous %}
+                          <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                          </li>
+                        {% else %}
+                          <li class="page-item disabled">
+                            <span class="page-link">Previous</span>
+                          </li>
+                        {% endif %}
+                    
+                          {% for page_num in paginator.page_range %}
+                          {% if page_obj.number == page_num %}
+                            <li class="page-item active">
+                              <span class="page-link">
+                                {{ page_num }}
+                                <span class="sr-only">(current)</span>
+                              </span>
+                            </li>
+                          {% else %}
+                            <li class="page-item">
+                              <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+                            </li>
+                          {% endif %}
+                        {% endfor %}
+                    
+                        {% if page_obj.has_next %}
+                          <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                          </li>
+                        {% else %}
+                          <li class="page-item disabled">
+                            <span class="page-link">Next</span>
+                          </li>
+                        {% endif %}
+                      </ul>
+                    </nav>
+                    {% endif %}
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

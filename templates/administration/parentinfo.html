@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="content-header row">
+    <div class="content-header-left col-md-9 col-12 mb-2">
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <h2 class="content-header-title float-left mb-0"><b>Parent Form</b></h2>
+                <div class="breadcrumb-wrapper">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li class="breadcrumb-item"><a href="{% url 'addparent' %}">New Parents</a>
+                        </li>
+                        
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <!-- Basic multiple Column Form section start -->
+ <section id="multiple-column-form">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Add parents</h4>
+                    
+                </div>
+                <div class="card-body">
+                    <form enctype="multipart/form-data" method="post" validate >
+                         
+                        {% csrf_token %}
+                       {%for field in form %}
+                       <div class="form-group">
+                         {{ field.label_tag }}
+                   
+                         {% if form.is_bound %}
+                           {% if field.errors %}
+                   
+                             {% render_field field class="form-control is-invalid" %}
+                             {% for error in field.errors %}
+                               <div class="invalid-feedback">
+                                 {{ error }}
+                               </div>
+                             {% endfor %}
+                   
+                           {% else %}
+                             {% render_field field class="form-control is-valid" %}
+                           {% endif %}
+                         {% else %}
+                           {% render_field field class="form-control" %}
+                         {% endif %}
+                   
+                         {% if field.help_text %}
+                           <small class="form-text text-muted">
+                             {{ field.help_text }}
+                           </small>
+                         {% endif %}
+                       </div>
+                     {% endfor %}
+                     <div class="form-check">
+                      <input class="form-check-input" type="checkbox"  name='p' id="p">
+                      <label class="form-check-label" for="p" name='p'>
+                          <h5 class="text-secondary">Give system Permission</h5>
+                      </label>
+                      <br>
+                      
+                    </div>
+                      <input type="submit" value="save" class="btn btn-primary mr-1">
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

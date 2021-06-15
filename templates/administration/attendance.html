@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+
+{% block content %}
+<div class="content-header row">
+    <div class="content-header-left col-md-9 col-12 mb-2">
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <h2 class="content-header-title float-left mb-0"><b>Student</b></h2>
+                <div class="breadcrumb-wrapper">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li class="breadcrumb-item"><a href="{% url 'attendance' %}">AllAttendance</a>
+                        </li>     
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section id="basic-vertical-layouts">
+    <div class="row">
+        <div class="col-md-12 col-12">
+            <div class="card">
+                <div class="col-md-19 col-28">
+                    <div class="card height-auto">
+                        <div class="card-body">
+                            <div class="heading-layout1">
+                                <div class="item-title">
+                                    <h3>Attendance Record</h3>
+                                </div>
+                                <br>
+                                 <!-- <div class="dropdown">
+                                    <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">...</a>
+                                </div> -->
+                            </div>
+                            <form  method=POST  action="{% url 'attendance' %}" class="mg-b-20" validate>
+                                {% csrf_token %}
+                                <div class="row gutters-8">
+                                    <div class="col-lg-2 col-18 form-group">
+                                        <input type="date" placeholder="Enter date yyyy-mm-dd" name="dateofattendance" class="form-control" required>
+                                    </div>
+                                    <!-- <div class="col-lg-3 col-12 form-group"> -->
+                                        <select class="col-lg-2 col-12 form-control"  name="class" style="height: 36px; width: 200px; margin-right: 12px;" required>
+                                            <option value="">  Select Class  </option>
+                                            {% for i in class_level %}
+                                            <option value="{{i}}">  {{i}} </option>
+                                            {% endfor %}
+                                            
+                                          </select>
+                                    <!-- </div> -->
+                                    <!-- <div class="col-lg-3 col-12 form-group"> -->
+                                        <select class="col-lg-2 col-12 form-control" name="section" style="height: 36px; width: 200px;" required>
+                                            <option value="">  Select Section  </option>
+                                            {% for i in class_section %}
+                                            <option value="{{i}}">{{i}}</option>
+                                            {% endfor %}
+                                          </select>
+                                    <!-- </div> -->
+                                    <div class="col-lg-3 col-6 form-group">
+                                        <button type="submit" class="btn  btn-primary mr-1">SEARCH</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="notice-board-wrap">
+                                
+                                <div class="notice-list">            
+                                    <table class="datatables-ajax table">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <!-- <th>Roll No</th> -->
+                                                <th>student</th>
+                                                <th>Class </th>
+                                                <th>Section</th>
+                                                <th>Room No</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    {% if result %}
+                                                    <h3>{{result}}</h3>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                            
+                                                {% for i in obj %}
+                                            <tr>
+                                                <td>{{i.date_now}}</td>
+                                               
+
+                                              
+                                                    <td>{{i.student}}</td>   
+                                                
+
+                                                <td>{{i.class_level.class_level}}</td>
+                                                <td>{{i.class_level.section}}</td>
+                                                <td>{{i.class_level.room_number}}</td>
+                                                <td>{{i.status}}</td>
+                                                
+                                                
+                                                <td>
+                                                    <a class="btn btn-primary mr-1" href="{% url 'attendance_edit' i.pk %}">Edit</a>
+                                                     <a  class="btn btn-primary mr-1" href="{% url 'attendance_delete' i.pk %}">Delete</a></td>
+
+                                                     <!-- <hr> -->
+                                                {% endfor %}
+                                            </tr>
+                                           
+                                        </thead>
+                                    </table>
+                                </div>
+                                 
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+
+
+
+{% block jsfile %}
+
+
+{% endblock %}

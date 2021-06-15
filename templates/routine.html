@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+<div class="content-header row">
+    <div class="content-header-left col-md-9 col-12 mb-2">
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <h2 class="content-header-title float-left mb-0"><b>Routine</b></h2>
+                <div class="breadcrumb-wrapper">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li class="breadcrumb-item"><a href="{% url 'routine' %}">All routine</a>
+                        </li>
+                        <li class="breadcrumb-item"><a href="{% url 'search_class_for_routine' %}">Add routine</a>
+                        </li>
+                        
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<section id="ajax-datatable">
+  <div class="row">
+      <div class="col-12">
+          <div class="card">
+
+                 <section id="basic-input">
+                  <div class="row">
+                      <div class="col-md-12">
+                              <div class="card-body">
+                                <form class="form-validate" method="POST">
+                                  {% csrf_token %}
+                                  <div class="row">
+                                      <div class="col-md-3">
+                                          <div class="form-group">
+                                              <input type="text" class="form-control" placeholder="Room Number"  name="room" id="username" required>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-3">
+                                          <div class="form-group">
+                                             
+                                              <input type="text" class="form-control" placeholder="Day"  name="day" id="name" required>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-4">
+                                          <div class="form-group">
+                                              <button type="submit" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1">Search</button>
+                                      </div>                                  
+                              </form>
+                                     
+                                  </div>
+                              </div>
+                          </div>
+                   
+                  </div>
+              </section>
+
+
+              <div class="card-datatable">
+                  <table class="datatables-ajax table">
+                      <thead>
+                          <tr>
+                            <th>Subject</th>
+                            <th>Period</th>
+                            <th>Time</th>
+                            <th>Day</th>
+                            <th>Teacher</th>
+                            <th>Room No</th>
+                            <th>Class</th>
+                            <th>Action</th>
+                              
+                          </tr>
+
+                              
+                          {% if result %}
+                          <tr>
+                              <td>
+                                <h2>{{result}}</h2>
+                            </td>
+                            </tr>
+                          {% endif %}
+                              {% for i in topics %}
+                          <tr>      
+                              <td>{{i.subject}}</td>
+                              <td>{{i.period}}</td>
+                              <td>{{i.start_time}}-{{i.end_time}}</td>
+                              <td>{{i.day}}</td>
+                              <td>{{i.teacher}}</td>
+                              <td>{{i.class_level.room_number}}</td>
+                              <td>{{i.class_level}}</td>
+                              <td><a href="{% url 'routine_edit' i.id %}">Edit</a> || <a href="{% url 'routine_delete' i.id %}">Delete</a> </td>
+                          </tr>
+                              {% endfor %}
+                           
+                      </thead>
+                  </table>
+
+
+                  <br>
+                  {% if topics.has_other_pages %}
+                  <nav aria-label="Topics pagination" class="mb-4">
+                    <ul class="pagination">
+                      {% if topics.has_previous %}
+                        <li class="page-item">
+                          <a class="page-link" href="?page={{ topics.previous_page_number }}">Previous</a>
+                        </li>
+                      {% else %}
+                        <li class="page-item disabled">
+                          <span class="page-link">Previous</span>
+                        </li>
+                      {% endif %}
+              
+                      {% for page_num in topics.paginator.page_range %}
+                        {% if topics.number == page_num %}
+                          <li class="page-item active">
+                            <span class="page-link">
+                              {{ page_num }}
+                              <span class="sr-only">(current)</span>
+                            </span>
+                          </li>
+                        {% else %}
+                          <li class="page-item">
+                            <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+                          </li>
+                        {% endif %}
+                      {% endfor %}
+              
+                      {% if topics.has_next %}
+                        <li class="page-item">
+                          <a class="page-link" href="?page={{ topics.next_page_number }}">Next</a>
+                        </li>
+                      {% else %}
+                        <li class="page-item disabled">
+                          <span class="page-link">Next</span>
+                        </li>
+                      {% endif %}
+                    </ul>
+                  </nav>
+                {% endif %}
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+{% endblock %}
