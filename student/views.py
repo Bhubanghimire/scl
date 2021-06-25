@@ -25,13 +25,15 @@ def NewAdmission(request):
 
 
         if ((chebox=="YES" or chebox=="NO") and formS.is_valid()):
-            p = formS.save()
+            
             permission=request.POST.get("p")
             if permission:
                 gmail=formS.cleaned_data['email']
-                User.objects.create_user(username=gmail,email=gmail, password='somepass',is_student=True)
+                User.objects.create_user(email=gmail, password='somepass',is_student=True)
+                p = formS.save()
 
             if chebox=="YES":
+                p = formS.save()
                 return redirect('parent_exists')
             else:
                 return redirect('parent_not_exists')            
@@ -178,7 +180,7 @@ def Parentform(request):
             gmail=form.cleaned_data['email']
             permission=request.POST.get('p')
             if permission:
-                User.objects.create_user(username=gmail,email=gmail, password='somepass',is_parent=True)
+                User.objects.create_user(email=gmail, password='somepass',is_parent=True)
 
             stu=Admission.objects.last()
             s=Student.objects.create()

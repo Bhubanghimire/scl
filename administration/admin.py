@@ -4,7 +4,7 @@ from django import forms
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
-from .models import Admission,ClassRoom,Subject,Contact,Notice,Staff,Routine,User,Registration,Session,Staff_Leave_Application
+from .models import Admission,Periods,ClassRoom,Subject,Contact,Notice,Staff,Routine,User,Registration,Session,Staff_Leave_Application
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.utils.translation import ugettext_lazy as _
 
@@ -19,6 +19,7 @@ admin.site.register(Routine)
 admin.site.register(Session)
 admin.site.register(Staff_Leave_Application)
 
+admin.site.register(Periods)
 
 # print(UserChangeForm.Meta.fields)
 # class MyUserChangeForm(UserChangeForm):
@@ -52,7 +53,7 @@ class UserAdmin(DjangoUserAdmin):
 
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        (_('Personal info'), {'fields': ('first_name', 'last_name','image')}),
+        (_('Personal info'), {'fields': ('first_name', 'last_name',)}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
                                        'groups', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),

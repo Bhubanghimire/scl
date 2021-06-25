@@ -180,17 +180,17 @@ class Subject(models.Model):
     def get_absolute_url(self): # new
         return reverse('addsubject')
 
+class Periods(models.Model):
+    period = models.CharField(max_length=200)
+    start_time =  models.TimeField()
+    end_time = models.TimeField()
+
+    def __str__(self):
+        return self.period
+    
 
 
 class Routine(models.Model):
-    period_choices=(
-        ("Period 1","Period 1"),
-        ("Period 2","Period 2"),
-        ("Period 3","Period 3"),
-        ("Period 4","Period 4"),
-        ("Period 5","Period 5"),
-        ("Period 6","Period 6"),
-        ("Period 7","Period 7"))
 
     day_choices=(
         ("Sunday","Sunday"),
@@ -202,16 +202,14 @@ class Routine(models.Model):
         ("Saturday","Saturday"))
 
     subject = models.ForeignKey(Subject, on_delete=models.SET_NULL,null=True,related_name="subjectinroutine")
-    period = models.CharField(max_length=20, choices = period_choices)
+    period = models.ForeignKey(Periods,on_delete=models.CASCADE,null=True )
     day = models.CharField(max_length=30,choices = day_choices)
-    start_time = models.TimeField( default="10:00" )
-    end_time = models.TimeField(default="10:00" )
     teacher = models.ForeignKey(Staff, on_delete=models.SET_NULL,null=True)
     class_level = models.ForeignKey(ClassRoom, on_delete=models.SET_NULL,null=True)
 
 
     def __str__(self):
-        return str(self.Class)
+        return str(self.class_level)
 
     def get_absolute_url(self): # new
         return reverse('routine')
@@ -266,3 +264,4 @@ class Staff_Leave_Application(models.Model):
 
     class Meta:
         ordering = ('-received_date',)
+

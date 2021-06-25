@@ -69,7 +69,7 @@
                                                     <img class="img-fluid rounded" src='/media/{{staff.image}}'  height="100" width="104" alt="User avatar" />
                                                     <div class="d-flex flex-column ml-1">
                                                         <div class="user-info mb-1">
-                                                            <h4 class="mb-0">{{staff.first_name}} {{staff.last_name}}</h4>
+                                                            <h4 class="mb-0">{{staff.name}} {{staff.last_name}}</h4>
                                                             <span class="card-text">{{staff.email}}</span>
                                                         </div>
                                                         <div class="d-flex flex-wrap">
@@ -96,9 +96,8 @@
                                                 <div class="d-flex flex-wrap">
                                                     <div class="user-info-title">
                                                         <i data-feather="user" class="mr-1"></i>
-                                                        <span class="card-text user-info-title font-weight-bold mb-0">Username</span>
                                                     </div>
-                                                    <p class="card-text mb-0"> eleanor.aguilar</p>
+                                                    <p class="card-text mb-0"> </p>
                                                 </div>
                                                 <div class="d-flex flex-wrap my-50">
                                                     <div class="user-info-title">
@@ -244,7 +243,7 @@
                                 {% if result %}
                         {{result }} <a href="{% url 'user_activate' staff.id %}">Activate Now</a>
                         {% else %}
-                                <p class="card-text ml-2">Staff has following Role.whant change? <a href="{% url 'user_role' user.id %}">Yes</a></p>
+                                <p class="card-text ml-2">Staff has following Role.whant change? <a href="{% url 'user_role' usr.id %}">Yes</a></p>
                                 <div class="table-responsive">
                                     <table class="table table-striped table-borderless">
                                         <thead class="thead-light">
@@ -258,7 +257,7 @@
                                             <tr>
                                                 <td>Admin</td>
                                                 <td>
-                                                    {% if user.is_admin %}
+                                                    {% if usr.is_admin %}
                                                     <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" class="custom-control-input" id="admin-read" checked disabled />
                                                         <label class="custom-control-label" for="admin-read"></label>
@@ -275,7 +274,7 @@
                                             <tr>
                                                 <td>Principle</td>
                                                 <td>
-                                                    {% if user.is_principal %}
+                                                    {% if usr.is_principal %}
                                                     <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" class="custom-control-input" id="admin-read" checked disabled />
                                                         <label class="custom-control-label" for="admin-read"></label>
@@ -292,7 +291,7 @@
                                             <tr>
                                                 <td>Vice-Principle</td>
                                                 <td>
-                                                    {% if user.is_viceprinciple %}
+                                                    {% if usr.is_viceprinciple %}
                                                     <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" class="custom-control-input" id="admin-read" checked disabled />
                                                         <label class="custom-control-label" for="admin-read"></label>
@@ -310,7 +309,7 @@
                                             <tr>
                                                 <td>Teacher</td>
                                                 <td>
-                                                    {% if user.is_teacher %}
+                                                    {% if usr.is_teacher %}
                                                     <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" class="custom-control-input" id="admin-read" checked disabled />
                                                         <label class="custom-control-label" for="admin-read"></label>
@@ -329,7 +328,7 @@
                                             <tr>
                                                 <td>Parent</td>
                                                 <td>
-                                                    {% if user.is_parent %}
+                                                    {% if usr.is_parent %}
                                                     <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" class="custom-control-input" id="admin-read" checked disabled />
                                                         <label class="custom-control-label" for="admin-read"></label>
@@ -346,7 +345,7 @@
                                             <tr>
                                                 <td>Accountant</td>
                                                 <td>
-                                                    {% if user.is_accountant %}
+                                                    {% if usr.is_accountant %}
                                                     <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" class="custom-control-input" id="admin-read" checked disabled />
                                                         <label class="custom-control-label" for="admin-read"></label>
@@ -362,7 +361,7 @@
                                             <tr>
                                                 <td>Student</td>
                                                 <td>
-                                                    {% if user.is_student %}
+                                                    {% if usr.is_student %}
                                                     <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" class="custom-control-input" id="admin-read" checked disabled />
                                                         <label class="custom-control-label" for="admin-read"></label>

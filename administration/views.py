@@ -134,27 +134,30 @@ def ShowRoutine(request):
 def NewStaff(request):
     if request.method == 'POST':
         form = AddStaff(request.POST,request.FILES)
+        print(form.is_valid())
+        print(form.errors)
         if form.is_valid():
             gmail=form.cleaned_data['email']
             typeofemploye = form.cleaned_data['Type']
             p=request.POST.get('p')
             if p:
                 if(typeofemploye=='Teacher'):
-                    User.objects.create_user(username=gmail,email=gmail, password='somepass',is_teacher=True)
+                    User.objects.create_user(email=gmail, password='somepass',is_teacher=True)
 
                 if(typeofemploye=='Principle'):
-                    User.objects.create_user(username=gmail,email=gmail, password='somepass',is_principal=True)
+                    User.objects.create_user(email=gmail, password='somepass',is_principal=True)
             
                 if(typeofemploye=='Accountant'):
-                    User.objects.create_user(username=gmail,email=gmail, password='somepass',is_accountant=True)
+                    User.objects.create_user(email=gmail, password='somepass',is_accountant=True)
                 if(typeofemploye=='Vice-Principle'):
-                    User.objects.create_user(username=gmail,email=gmail, password='somepass',is_viceprinciple=True)
+                    User.objects.create_user(email=gmail, password='somepass',is_viceprinciple=True)
            
             
             form.save(commit=True)
             return redirect('home')
     else:
         form = AddStaff()
+        print("not form")
     
     return render(request, 'newstaff.html', {'form': form})
 
@@ -203,6 +206,7 @@ def AddRoutine(request,id):
     if request.method == 'POST':
         form = AddRoutines(request.POST)
         if form.is_valid():
+            print("bhuban")
             teach = request.POST.get("teacher")
             sub = request.POST.get("subject")
             sub = Subject.objects.get(name=sub, class_level=clss_level)
@@ -570,9 +574,10 @@ def  StaffDetailView(request,id):
     user=User.objects.filter(email=email)
     if not user:
         result="Your account is not activated"
+        param={'staff':staff,'result':result}
     else:
         user=User.objects.get(email=email)
-    param={'staff':staff,'user':user,'result':result}
+        param={'staff':staff,'usr':user,'result':result}
     return render(request, "administration/profile.html",param)
 
 
@@ -582,18 +587,21 @@ def UserActivate(request,id):
     gmail=staff.email
     typeofemploye =staff.Type
     result=None
+    usr=None
     if(typeofemploye=='Teacher'):
-        User.objects.create_user(username=gmail,email=gmail, password='somepass',is_teacher=True)
+        print("he is teacher")
+        User.objects.create_user(email=gmail, password='somepass',is_teacher=True)
+        print("he is teacher1")
 
     if(typeofemploye=='Principle'):
-        usr=User.objects.create_user(username=gmail,email=gmail, password='somepass',is_principal=True)
+        usr=User.objects.create_user(email=gmail, password='somepass',is_principal=True)
             
     if(typeofemploye=='Accountant'):
-        usr=User.objects.create_user(username=gmail,email=gmail, password='somepass',is_accountant=True)
-    if(typeofemploye=='Vice-Principle'):
-        usr=User.objects.create_user(username=gmail,email=gmail, password='somepass',is_viceprinciple=True)
+        usr=User.objects.create_user(email=gmail, password='somepass',is_accountant=True)
+
+    elif(typeofemploye=='Vice-Principle'):
+        usr=User.objects.create_user(email=gmail, password='somepass',is_viceprinciple=True)
     
-    print(usr.id)
            
     param={'staff':staff,'user':usr,'result':result}
     # return redirect('staff_detail',param)

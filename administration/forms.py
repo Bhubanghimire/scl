@@ -19,7 +19,7 @@ class AddStaff(forms.ModelForm):
 
     class Meta:
         model = Staff
-        fields = ('name', 'Type','dob','phone','gender','district','address','email','date','image')
+        fields = ('name', 'Type','dob','phone','gender','district','address','email','image')
 
 
 
@@ -59,7 +59,7 @@ class AddRoutines(forms.ModelForm):
 
     class Meta:
         model = Routine
-        fields = ('period','start_time','end_time','day')
+        fields = ('period','day')
 
 
 class Newclass(forms.ModelForm):

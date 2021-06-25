@@ -55,7 +55,7 @@ def Addparent(request):
         print(form.is_valid())
         if form.is_valid():
             gmail=form.cleaned_data['email']
-            User.objects.create_user(username=gmail,email=gmail, password='somepass',is_parent=True)
+            User.objects.create_user(email=gmail, password='somepass',is_parent=True)
 
             form.save(commit=True)
             return redirect('home')
@@ -119,7 +119,7 @@ def UserActivate(request,id):
     gmail=parent.email
     result=None
     # if(typeofemploye=='Teacher'):
-    usr=User.objects.create_user(username=gmail,email=gmail, password='somepass',is_parent=True)
+    usr=User.objects.create_user(email=gmail, password='somepass',is_parent=True)
 
     # if(typeofemploye=='Principle'):
     #     usr=User.objects.create_user(username=gmail,email=gmail, password='somepass',is_principal=True)

@@ -49,9 +49,3 @@ def Logout(request):
     logout(request)
     return redirect('login')
 
-#     # if request.method == 'POST':
-#     #     username=request.POST.
-
-#     #     usr= User(password="qwertyuiop345",  username="bhuban31", email="bhuban@gmail.com", first_name="bhuban", last_name="ghimire")
-#     #     usr.save()
-#     # return render(request, 'account/signup.html')
